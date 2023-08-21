@@ -1,7 +1,10 @@
 import playerData from "./playerData";
+import {useState} from 'react'
 
 
 function BaseballCard(props) {
+  const [showPicture, setShowPicture] = useState(true)
+  
   const statsDisplay = [];
   for(let stat in props.stats){
     statsDisplay.push(
@@ -9,21 +12,28 @@ function BaseballCard(props) {
     )
   }
 
+  function toggleCard(){
+    setShowPicture(!showPicture)
+  }
+
+  if(showPicture){
+    return (
+      <div onClick={toggleCard} className="card">
+        <h2>{props.name}</h2>
+        <img src={props.imgUrl}/>
+      </div>
+    )
+  } else {
   return (
-    <div className="card">
+    <div onClick={toggleCard} className="card">
       <h2>{props.name}</h2>
       <p>{props.team}</p>
       <p>{props.position}</p>
       <p>{statsDisplay}</p>
     </div>
-  )
+  )};
   
-  // return (
-  //   <div className="card">
-  //     <h2>{props.name}</h2>
-  //     <img src={props.imgUrl}/>
-  //   </div>
-  // );
+
 }
 
 function App() {
